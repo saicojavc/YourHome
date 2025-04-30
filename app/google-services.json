@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "991489340356",
+    "project_id": "yourhome-7f12f",
+    "storage_bucket": "yourhome-7f12f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:991489340356:android:4dd5021a2b243ff8552a91",
+        "android_client_info": {
+          "package_name": "com.saico.yourhome"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGRAi6xRcMrqYT94b40TtTfPleAilclzQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
