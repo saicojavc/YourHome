@@ -1,46 +1,23 @@
 plugins {
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-    alias(libs.plugins.google.services)
-    alias(libs.plugins.firebase.crashlytics)
 }
 
 android {
-    namespace = "com.saico.yourhome"
+    namespace = "com.saico.yourhome.ui"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = "com.saico.yourhome"
         minSdk = libs.versions.minSdk.get().toInt()
-        targetSdk = libs.versions.targetSdk.get().toInt()
-        versionCode = 1
-        versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles("consumer-rules.pro")
     }
-    android.applicationVariants.configureEach {
-        //Example (com.saico.airlineticket-v0.0.1-release.apk)
-        val name = buildType.name // buildType [debug,release]
 
-        outputs
-            .map { it as com.android.build.gradle.internal.api.BaseVariantOutputImpl }
-            .forEach {
-                it.outputFileName = "${applicationId}-v${versionName}-${name}.apk"
-            }
-    }
     buildTypes {
         release {
             isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-        debug {
-            isDebuggable = true
-            isMinifyEnabled = false
-            isShrinkResources = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -54,33 +31,20 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_17.toString()
     }
-    buildFeatures {
-        compose = true
-    }
-    packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
-    }
 }
 
 dependencies {
 
-    implementation(project(":core:ui"))
+    //    implementation(project(":core:ui"))
 //    implementation(project(":feature:home"))
-    implementation(project(":feature:login"))
+//    implementation(project(":feature:login"))
 //    implementation(project(":feature:seat"))
 //    implementation(project(":feature:ticket_detail"))
 
     implementation(libs.androidx.lifecycle.runtime.compose.android)
     implementation(libs.androidx.navigation.common.ktx)
-    implementation(libs.androidx.navigation.compose.ktx)
+    implementation(libs.androidx.navigation.runtime.android)
     coreLibraryDesugaring(libs.com.android.tools.desugar)
-
-//    firebase
-    implementation(platform(libs.firebase.bom))
-    implementation(libs.firebase.crashlytics)
-    implementation(libs.firebase.database)
 
     //SplashScreen
     implementation(libs.androidx.core.core.splashscreen)

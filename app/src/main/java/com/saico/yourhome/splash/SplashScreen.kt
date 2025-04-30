@@ -46,7 +46,7 @@ fun SplashScreen() {
             painter = painterResource(id = R.drawable.intro_pic),
             contentDescription = null,
             modifier = Modifier
-                .padding(top = 20.dp)
+                .padding(top = 50.dp)
                 .size(400.dp)
         )
 
