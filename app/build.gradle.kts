@@ -4,6 +4,8 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.google.services)
     alias(libs.plugins.firebase.crashlytics)
+//    alias(libs.plugins.com.dagger.hilt)
+//    id("com.google.devtools.ksp")
 }
 
 android {

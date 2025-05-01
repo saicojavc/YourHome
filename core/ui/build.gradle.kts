@@ -81,4 +81,7 @@ dependencies {
     implementation("com.google.code.gson:gson:2.11.0")
     implementation(libs.androidx.foundation)
     implementation(libs.accompanist.systemuicontroller)
+
+    //Icons -> https://fonts.google.com/icons
+    api(libs.androidx.icons.extended)
 }
