@@ -20,7 +20,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -34,6 +33,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.saico.yourhome.ui.R
 import com.saico.yourhome.ui.component.ButtonP
 import com.saico.yourhome.ui.component.TextButtonBorder
@@ -43,21 +44,28 @@ import com.saico.yourhouse.mylibrary.model.UIState
 
 
 @Composable
-fun LoginScreen(
+fun LoginScreen() {
 
-) {
-
+    val viewModel: LoginViewModel = viewModel()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     Content(
+        state = uiState,
+        onEmailChange = { viewModel.onEmailChanged(it) },
+        onPasswordChange = { viewModel.onPasswordChanged(it) },
+        onIsShowPasswordChange = viewModel::onShowHidePassword,
     )
 
 }
 
+@SuppressLint("StateFlowValueCalledInComposition")
 @Composable
 fun Content(
+    state: UIState,
+    onEmailChange: (String) -> Unit,
+    onPasswordChange: (String) -> Unit,
+    onIsShowPasswordChange: () -> Unit,
 ) {
-    var email by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
     val focusManager = LocalFocusManager.current
 
     Scaffold(
@@ -133,10 +141,10 @@ fun Content(
                     TextFieldEmil(
                         modifier = Modifier
                             .fillMaxWidth(),
-                        value = email,
+                        value = state.email,
                         errorMessage = "",
                         onValueChange = {
-                            email = it.trim()
+                            onEmailChange(it.trim())
                         },
                         label = "Email",
                         keyboardActions = KeyboardActions(
@@ -157,10 +165,10 @@ fun Content(
                     TextFieldPassword(
                         modifier = Modifier
                             .fillMaxWidth(),
-                        value = password,
+                        value = state.password,
                         errorMessage = "",
                         onValueChange = {
-                            password = it.trim()
+                            onPasswordChange(it.trim())
                         },
                         label = "Password",
                         keyboardActions = KeyboardActions(
@@ -169,8 +177,8 @@ fun Content(
 //                            onSingInPress()
                             }
                         ),
-                        onHiddenChange = {},
-                        hidden = false, //cambiar,
+                        onHiddenChange = onIsShowPasswordChange,
+                        hidden = state.isShowPassword, //cambiar,
                         leadingIcon = {
                             Icon(
                                 imageVector = Icons.Outlined.Password,
