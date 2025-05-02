@@ -83,6 +83,7 @@ dependencies {
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.crashlytics)
     implementation(libs.firebase.database)
+    implementation(libs.firebase.auth.ktx)
 
     //SplashScreen
     implementation(libs.androidx.core.core.splashscreen)

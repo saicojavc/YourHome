@@ -5,15 +5,19 @@ import androidx.navigation.NavHostController
 import androidx.navigation.navigation
 import com.saico.yourhome.ui.navigation.route.login.LoginRoute
 import androidx.navigation.compose.composable
+import com.google.firebase.auth.FirebaseAuth
 import com.saico.yourhouse.mylibrary.LoginScreen
 
-fun NavGraphBuilder.loginGraph(navHostController: NavHostController) {
+fun NavGraphBuilder.loginGraph(navHostController: NavHostController, auth: FirebaseAuth) {
     navigation(
         startDestination = LoginRoute.LoginScreenRoute.route,
         route = LoginRoute.RootRoute.route
     ){
         composable(route = LoginRoute.LoginScreenRoute.route){
-            LoginScreen(navHostController = navHostController)
+            LoginScreen(
+                navHostController = navHostController,
+                auth = auth
+                )
         }
     }
 }

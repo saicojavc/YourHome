@@ -8,5 +8,5 @@ import jakarta.inject.Inject
 @HiltViewModel
 internal class MainActivityViewModel @Inject constructor(): ViewModel() {
 
-    val firstScreen = LoginRoute.RootRoute.route
+    var firstScreen = LoginRoute.RootRoute.route
 }
