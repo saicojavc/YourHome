@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.saico.yourhouse.mylibrary"
+    namespace = "com.saico.yourhouse.home"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
@@ -38,7 +38,7 @@ dependencies {
 
     implementation(project(":core:ui"))
 //    implementation(project(":feature:home"))
-//    implementation(project(":feature:login"))
+    implementation(project(":feature:login"))
 //    implementation(project(":feature:seat"))
 //    implementation(project(":feature:ticket_detail"))
 

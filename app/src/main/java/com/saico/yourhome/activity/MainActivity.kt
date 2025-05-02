@@ -21,6 +21,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.saico.yourhome.splash.SplashScreen
 import com.saico.yourhome.ui.theme.YourHomeTheme
+import com.saico.yourhouse.home.navigation.homeGraph
 import com.saico.yourhouse.mylibrary.navigation.loginGraph
 import kotlinx.coroutines.delay
 
@@ -73,9 +74,9 @@ private fun MainContainer(
             modifier = Modifier.weight(1.0f)
         ) {
 
-
             loginGraph(navController)
 
+            homeGraph(navController)
 
         }
     }

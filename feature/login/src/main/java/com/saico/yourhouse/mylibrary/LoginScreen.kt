@@ -21,9 +21,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -35,16 +32,19 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
 import com.saico.yourhome.ui.R
 import com.saico.yourhome.ui.component.ButtonP
 import com.saico.yourhome.ui.component.TextButtonBorder
 import com.saico.yourhome.ui.component.TextFieldEmil
 import com.saico.yourhome.ui.component.TextFieldPassword
+import com.saico.yourhome.ui.navigation.route.home.HomeRoute
+import com.saico.yourhome.ui.navigation.route.login.LoginRoute
 import com.saico.yourhouse.mylibrary.model.UIState
 
 
 @Composable
-fun LoginScreen() {
+fun LoginScreen(navHostController: NavHostController) {
 
     val viewModel: LoginViewModel = viewModel()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -54,6 +54,7 @@ fun LoginScreen() {
         onEmailChange = { viewModel.onEmailChanged(it) },
         onPasswordChange = { viewModel.onPasswordChanged(it) },
         onIsShowPasswordChange = viewModel::onShowHidePassword,
+        navHostController = navHostController
     )
 
 }
@@ -65,6 +66,7 @@ fun Content(
     onEmailChange: (String) -> Unit,
     onPasswordChange: (String) -> Unit,
     onIsShowPasswordChange: () -> Unit,
+    navHostController: NavHostController,
 ) {
     val focusManager = LocalFocusManager.current
 
@@ -205,7 +207,9 @@ fun Content(
 
                     ButtonP(
                         onClick = {
-
+                            navHostController.navigate(
+                                HomeRoute.HomeScreenRoute.route
+                            )
                         },
                         modifier = Modifier
                             .fillMaxWidth(),
