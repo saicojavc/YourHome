@@ -233,7 +233,9 @@ fun Content(
                     Box(
                         modifier = Modifier
                             .align(Alignment.End)
-                            .clickable { },
+                            .clickable {
+
+                            },
                         contentAlignment = Alignment.Center
                     ) {
                         Text(
