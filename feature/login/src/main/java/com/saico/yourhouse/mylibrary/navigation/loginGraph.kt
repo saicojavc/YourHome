@@ -8,7 +8,11 @@ import androidx.navigation.compose.composable
 import com.google.firebase.auth.FirebaseAuth
 import com.saico.yourhouse.mylibrary.LoginScreen
 
-fun NavGraphBuilder.loginGraph(navHostController: NavHostController, auth: FirebaseAuth) {
+fun NavGraphBuilder.loginGraph(
+    navHostController: NavHostController,
+    auth: FirebaseAuth,
+    onLoginWithGoogle: () -> Unit,
+    ) {
     navigation(
         startDestination = LoginRoute.LoginScreenRoute.route,
         route = LoginRoute.RootRoute.route
@@ -16,7 +20,8 @@ fun NavGraphBuilder.loginGraph(navHostController: NavHostController, auth: Fireb
         composable(route = LoginRoute.LoginScreenRoute.route){
             LoginScreen(
                 navHostController = navHostController,
-                auth = auth
+                auth = auth,
+                onLoginWithGoogle = onLoginWithGoogle
                 )
         }
     }

@@ -58,7 +58,11 @@ import com.saico.yourhouse.mylibrary.model.UIState
 
 
 @Composable
-fun LoginScreen(navHostController: NavHostController, auth: FirebaseAuth) {
+fun LoginScreen(
+    navHostController: NavHostController,
+    auth: FirebaseAuth,
+    onLoginWithGoogle: () -> Unit,
+) {
 
     val viewModel: LoginViewModel = viewModel()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -69,7 +73,8 @@ fun LoginScreen(navHostController: NavHostController, auth: FirebaseAuth) {
         onPasswordChange = { viewModel.onPasswordChanged(it) },
         onIsShowPasswordChange = viewModel::onShowHidePassword,
         navHostController = navHostController,
-        auth = auth
+        auth = auth,
+        onLoginWithGoogle = onLoginWithGoogle
     )
 
 }
@@ -84,6 +89,7 @@ fun Content(
     onIsShowPasswordChange: () -> Unit,
     navHostController: NavHostController,
     auth: FirebaseAuth,
+    onLoginWithGoogle: () -> Unit,
 ) {
     var show by remember { mutableStateOf(false) }
 
@@ -142,7 +148,7 @@ fun Content(
                         )
                     },
                     onClick = {
-
+                        onLoginWithGoogle()
                     },
                     border = BorderStroke(
                         2.dp,

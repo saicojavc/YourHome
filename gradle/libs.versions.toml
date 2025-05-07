@@ -54,6 +54,9 @@ retrofit-version = "2.11.0"
 okhttp3-interceptor-version = "5.0.0-alpha.14"
 roomKtx = "2.7.1"
 navigationRuntimeAndroid = "2.9.0-rc01"
+googleid = "1.1.1"
+credentials = "1.5.0"
+credentialsPlayServicesAuth = "1.5.0"
 
 
 
@@ -67,8 +70,14 @@ com-android-tools-desugar = { module = "com.android.tools:desugar_jdk_libs", ver
 
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 
+androidx-credentials = { group = "androidx.credentials", name = "credentials", version.ref = "credentials" }
+androidx-credentials-play-services-auth = { group = "androidx.credentials", name = "credentials-play-services-auth", version.ref = "credentialsPlayServicesAuth" }
+googleid = { group = "com.google.android.libraries.identity.googleid", name = "googleid", version.ref = "googleid" }
+
+
 #firebase
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
+#firebase-common = { group = "com.google.firebase", name = "firebase-common", version.ref = "firebaseCommon" }
 firebase-auth = { module = "com.google.firebase:firebase-auth" }
 firebase-auth-ktx = { module = "com.google.firebase:firebase-auth-ktx", version.ref = "firebaseAuthKtx" }
 firebase-database = { group = "com.google.firebase", name = "firebase-database", version.ref = "firebaseDatabase" }
