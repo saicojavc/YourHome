@@ -2,7 +2,11 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-//    alias(libs.plugins.google.gms.google.services)
+    alias(libs.plugins.google.services)
+    alias(libs.plugins.firebase.crashlytics)
+    id("com.google.firebase.firebase-perf")
+//    alias(libs.plugins.com.dagger.hilt)
+//    id("com.google.devtools.ksp")
 }
 
 android {
@@ -37,7 +41,6 @@ android {
             )
         }
         debug {
-            applicationIdSuffix = ".debug"
             isDebuggable = true
             isMinifyEnabled = false
             isShrinkResources = false
@@ -66,16 +69,34 @@ android {
 
 dependencies {
 
-//    implementation(project(":core:ui"))
-//    implementation(project(":feature:home"))
-//    implementation(project(":feature:login"))
+    implementation(project(":core:ui"))
+    implementation(project(":feature:home"))
+    implementation(project(":feature:login"))
+    implementation(project(":core:model"))
 //    implementation(project(":feature:seat"))
 //    implementation(project(":feature:ticket_detail"))
 
     implementation(libs.androidx.lifecycle.runtime.compose.android)
     implementation(libs.androidx.navigation.common.ktx)
-//    implementation(libs.firebase.database)
+    implementation(libs.androidx.navigation.compose.ktx)
     coreLibraryDesugaring(libs.com.android.tools.desugar)
+
+
+    implementation(libs.androidx.credentials)
+    implementation(libs.androidx.credentials.play.services.auth)
+    implementation(libs.googleid)
+
+    implementation(libs.play.services.auth)
+
+//    firebase
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.crashlytics)
+    implementation(libs.firebase.database)
+    implementation(libs.firebase.auth.ktx)
+    implementation(libs.firebase.auth)
+    implementation(libs.firebase.crashlytics)
+    implementation(libs.firebase.perf)
+
 
     //SplashScreen
     implementation(libs.androidx.core.core.splashscreen)

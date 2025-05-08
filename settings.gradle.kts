@@ -21,4 +21,9 @@ dependencyResolutionManagement {
 
 rootProject.name = "Your Home"
 include(":app")
- 
+include(":feature")
+include(":core")
+include(":core:ui")
+include(":feature:login")
+include(":feature:home")
+include(":core:model")
