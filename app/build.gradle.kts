@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.google.services)
     alias(libs.plugins.firebase.crashlytics)
+    id("com.google.firebase.firebase-perf")
 //    alias(libs.plugins.com.dagger.hilt)
 //    id("com.google.devtools.ksp")
 }
@@ -94,6 +95,7 @@ dependencies {
     implementation(libs.firebase.auth.ktx)
     implementation(libs.firebase.auth)
     implementation(libs.firebase.crashlytics)
+    implementation(libs.firebase.perf)
 
 
     //SplashScreen

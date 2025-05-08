@@ -17,4 +17,5 @@ plugins {
     alias(libs.plugins.com.dagger.hilt) apply false
     alias(libs.plugins.com.google.ksp) apply false
     alias(libs.plugins.detekt)
+    id("com.google.firebase.firebase-perf") version "1.4.2" apply false
 }
