@@ -1,13 +1,15 @@
 package com.saico.yourhome.activity
 
 import androidx.lifecycle.ViewModel
-import com.saico.yourhome.SignInResult
+import com.saico.yourhome.model.SignInResult
+import com.saico.yourhome.model.UserData
 import com.saico.yourhome.ui.navigation.route.login.LoginRoute
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import com.saico.yourhome.model.LoginUIState
 
 @HiltViewModel
 internal class MainActivityViewModel @Inject constructor(): ViewModel() {
@@ -33,7 +35,3 @@ internal class MainActivityViewModel @Inject constructor(): ViewModel() {
 }
 
 
-data class LoginUIState(
-    val isSignInSuccessful: Boolean = false,
-    val signInError: String? = null
-)

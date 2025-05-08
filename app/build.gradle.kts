@@ -71,6 +71,7 @@ dependencies {
     implementation(project(":core:ui"))
     implementation(project(":feature:home"))
     implementation(project(":feature:login"))
+    implementation(project(":core:model"))
 //    implementation(project(":feature:seat"))
 //    implementation(project(":feature:ticket_detail"))
 

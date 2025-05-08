@@ -8,6 +8,8 @@ import com.google.android.gms.auth.api.identity.SignInClient
 import com.google.firebase.Firebase
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.auth
+import com.saico.yourhome.model.SignInResult
+import com.saico.yourhome.model.UserData
 import kotlinx.coroutines.tasks.await
 import kotlin.coroutines.cancellation.CancellationException
 
@@ -88,13 +90,13 @@ class GoogleAuthUiClient(
     }
 }
 
-data class SignInResult(
-    val data: UserData?,
-    val errorMessage: String?
-)
-
-data class UserData(
-    val userId: String,
-    val username: String?,
-    val profilePictureUrl: String?
-)
+//data class SignInResult(
+//    val data: UserData?,
+//    val errorMessage: String?
+//)
+//
+//data class UserData(
+//    val userId: String,
+//    val username: String?,
+//    val profilePictureUrl: String?
+//)
