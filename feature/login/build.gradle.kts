@@ -50,8 +50,11 @@ dependencies {
 
 //    firebase
     implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.crashlytics)
     implementation(libs.firebase.database)
     implementation(libs.firebase.auth.ktx)
+    implementation(libs.firebase.auth)
+    implementation(libs.firebase.crashlytics)
 
     //hilt
     implementation(libs.com.google.dagger.hilt.android)

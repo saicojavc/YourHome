@@ -18,6 +18,6 @@ fun HomeScreen(navHostController: NavHostController, auth: FirebaseAuth) {
                 LoginRoute.LoginScreenRoute.route
             )
         },
-        text = auth.currentUser?.email.toString()
+        text = auth.currentUser?.displayName.toString()
     )
 }

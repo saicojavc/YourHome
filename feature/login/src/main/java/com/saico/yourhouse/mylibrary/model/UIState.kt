@@ -1,7 +1,11 @@
 package com.saico.yourhouse.mylibrary.model
 
 data class UIState(
+    val name: String = "",
+    val lastName: String = "",
     val email: String = "",
+    val type: String = "user",
+    val phone: String = "",
     val emailSignup: String = "",
     val emailError: Boolean = false,
     val errorText: String? = null,
