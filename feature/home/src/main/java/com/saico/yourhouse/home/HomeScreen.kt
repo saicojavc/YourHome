@@ -34,14 +34,17 @@ import com.saico.yourhouse.home.screens.SettingScreen
 @Composable
 fun HomeScreen(navHostController: NavHostController, auth: FirebaseAuth) {
 
-    Content()
+    Content(
+        navHostController = navHostController,
+        auth = auth
+    )
 
 }
 
 @Composable
-fun Content(){
+fun Content(auth: FirebaseAuth, navHostController: NavHostController) {
 
-    var selectedBottomAppBarItem by remember { mutableStateOf(BottomAppBarItem.HOME)  }
+    var selectedBottomAppBarItem by remember { mutableStateOf(BottomAppBarItem.HOME) }
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -102,18 +105,23 @@ fun Content(){
         contentWindowInsets = WindowInsets.systemBars
     ) { paddingValues ->
 
-        Row (
+        Row(
             modifier = Modifier.padding(paddingValues)
-        ){
-            when(selectedBottomAppBarItem){
-                BottomAppBarItem.HOME ->{
-                    MainHomeScreen()
+        ) {
+            when (selectedBottomAppBarItem) {
+                BottomAppBarItem.HOME -> {
+                    MainHomeScreen(
+                        navHostController = navHostController,
+                        auth = auth
+                    )
                 }
-                BottomAppBarItem.FAVORITE ->{
+
+                BottomAppBarItem.FAVORITE -> {
                     FavoriteScreen()
                 }
-                BottomAppBarItem.PROFILE ->{
-                   SettingScreen()
+
+                BottomAppBarItem.PROFILE -> {
+                    SettingScreen()
                 }
             }
         }
