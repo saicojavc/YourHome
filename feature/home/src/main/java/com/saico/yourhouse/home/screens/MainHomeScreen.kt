@@ -14,8 +14,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Bathroom
@@ -36,11 +38,13 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.firebase.auth.FirebaseAuth
 import  com.saico.yourhome.ui.R
 import com.saico.yourhome.ui.navigation.route.login.LoginRoute
+import androidx.compose.foundation.pager.rememberPagerState
+import  androidx.compose.foundation.pager.HorizontalPager
 
 @Composable
 fun MainHomeScreen(
@@ -71,6 +75,7 @@ fun MainHomeScreen(
 
 }
 
+@OptIn(ExperimentalPagerApi::class)
 @Composable
 fun Content(
     typeHouseIcons: List<Int>,
@@ -78,6 +83,19 @@ fun Content(
     navHostController: NavHostController,
     houses: List<Int>
 ) {
+
+    val pagerState = rememberPagerState(
+        initialPage = 0,
+        initialPageOffsetFraction = 0f,
+        pageCount = { houses.size }
+    )
+    val reversedHouses = houses.reversed()
+
+    val reversedPagerState = rememberPagerState(
+        initialPage = 0,
+        initialPageOffsetFraction = 0f,
+        pageCount = { reversedHouses.size }
+    )
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -101,54 +119,110 @@ fun Content(
             }
         }
     ) { paddingValues ->
-        Column(
+
+        LazyColumn(
             modifier = Modifier
                 .padding(8.dp)
                 .padding(paddingValues)
         ) {
-            LazyRow(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(8.dp),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                items(typeHouseIcons) { typeHouseIcon ->
-                    TypeHouseList(
-                        typeHouseIcon = typeHouseIcon
+            item {
+
+                LazyRow(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(8.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    items(typeHouseIcons) { typeHouseIcon ->
+                        TypeHouseList(
+                            typeHouseIcon = typeHouseIcon
+                        )
+                    }
+                }
+                Spacer(modifier = Modifier.padding(vertical = 8.dp))
+
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(4.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                ) {
+                    Text(
+                        text = "Recommended property",
+                        fontWeight = FontWeight.Bold
+                    )
+                    Text(
+                        text = "Show all",
+                        color = Color.Blue
                     )
                 }
-            }
-            Spacer(modifier = Modifier.padding(vertical = 8.dp))
 
-            LazyRow(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(8.dp),
-            ) {
-                items(houses){ house ->
+
+                HorizontalPager(
+                    state = pagerState,
+                    beyondViewportPageCount = houses.size,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 12.dp, bottom = 16.dp)
+                ) { pages ->
                     HouseCart(
-                        house = house
+                        house = houses[pages]
+                    )
+                }
+
+                Spacer(modifier = Modifier.padding(vertical = 8.dp))
+
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(4.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                ) {
+                    Text(
+                        text = "Nearbi property",
+                        fontWeight = FontWeight.Bold
+                    )
+                    Text(
+                        text = "Show all",
+                        color = Color.Blue
+                    )
+                }
+
+                HorizontalPager(
+                    state = reversedPagerState,
+                    beyondViewportPageCount = reversedHouses.size,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 12.dp, bottom = 16.dp)
+                ) { pages ->
+                    ReverseHouseCart(
+                        house = reversedHouses[pages]
                     )
                 }
             }
         }
+
     }
 
 }
 
 @Composable
-fun HouseCart(house: Int) {
+fun HouseCart(
+    house: Int
+) {
     ElevatedCard(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp),
         onClick = {},
 
-    ) {
+        ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-        ){
+        ) {
             Image(
                 modifier = Modifier
                     .width(310.dp)
@@ -172,7 +246,7 @@ fun HouseCart(house: Int) {
 
                 Row(
                     horizontalArrangement = Arrangement.End
-                ){
+                ) {
                     Icon(
                         imageVector = Icons.Rounded.Star,
                         contentDescription = null,
@@ -229,7 +303,115 @@ fun HouseCart(house: Int) {
 
                 Row(
                     horizontalArrangement = Arrangement.End
-                ){
+                ) {
+
+                    Text(
+                        text = "$500.000",
+                        fontWeight = FontWeight.Bold
+                    )
+                }
+            }
+        }
+    }
+}
+
+
+@Composable
+fun ReverseHouseCart(
+    house: Int
+) {
+    ElevatedCard(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp),
+        onClick = {},
+
+        ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+        ) {
+            Image(
+                modifier = Modifier
+                    .width(310.dp)
+                    .height(120.dp),
+                contentScale = ContentScale.Crop,
+                painter = painterResource(id = house),
+                contentDescription = null
+            )
+            Row(
+                modifier = Modifier
+                    .width(310.dp)
+//                    .fillMaxWidth()
+                    .padding(12.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = "House Type",
+                    fontWeight = FontWeight.Bold,
+                )
+
+                Row(
+                    horizontalArrangement = Arrangement.End
+                ) {
+                    Icon(
+                        imageVector = Icons.Rounded.Star,
+                        contentDescription = null,
+                        tint = Color.Yellow
+                    )
+                    Text(
+                        text = "4.3",
+                        fontWeight = FontWeight.Bold
+                    )
+                }
+            }
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    modifier = Modifier.padding(start = 8.dp),
+                    imageVector = Icons.Rounded.LocationOn,
+                    contentDescription = null
+                )
+                Text(
+                    text = "Miami",
+                )
+            }
+            Row(
+                modifier = Modifier
+                    .width(310.dp)
+//                    .fillMaxWidth()
+                    .padding(12.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+
+                Row(
+                    horizontalArrangement = Arrangement.Start
+                ) {
+                    Icon(
+                        imageVector = Icons.Rounded.Bed,
+                        contentDescription = null
+                    )
+                    Text(
+                        text = "2",
+                        fontWeight = FontWeight.SemiBold
+                    )
+                    Spacer(modifier = Modifier.padding(horizontal = 4.dp))
+                    Icon(
+                        imageVector = Icons.Rounded.Bathroom,
+                        contentDescription = null
+                    )
+                    Text(
+                        text = "2",
+                        fontWeight = FontWeight.SemiBold
+                    )
+                }
+
+                Row(
+                    horizontalArrangement = Arrangement.End
+                ) {
 
                     Text(
                         text = "$500.000",
